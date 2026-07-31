@@ -1,7 +1,0 @@
-environment: production
-log_level: INFO
-kafka:
-  auto_create_topics: false
-spark:
-  master: ""
-  starting_offsets: latest
