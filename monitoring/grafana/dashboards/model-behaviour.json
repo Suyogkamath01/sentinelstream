@@ -1,0 +1,12 @@
+{
+  "title": "SentinelStream - Model Behaviour",
+  "uid": "sentinelstream-model",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Prediction distribution", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "targets": [{"expr": "sum by (risk_tier) (rate(sentinelstream_predictions_generated_total[15m]))", "refId": "A", "legendFormat": "{{risk_tier}}"}]},
+    {"id": 2, "type": "timeseries", "title": "Drift scores", "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "targets": [{"expr": "sentinelstream_drift_score", "refId": "A", "legendFormat": "{{kind}} / {{feature}}"}]},
+    {"id": 3, "type": "text", "title": "Interpretation", "gridPos": {"h": 4, "w": 24, "x": 0, "y": 8}, "options": {"mode": "markdown", "content": "Drift is an investigation signal. Validate data quality, labels, calibration, and business context before changing a model."}}
+  ]
+}

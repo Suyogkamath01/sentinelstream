@@ -1,0 +1,14 @@
+{
+  "title": "SentinelStream - System Overview",
+  "uid": "sentinelstream-system",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "time": {"from": "now-6h", "to": "now"},
+  "panels": [
+    {"id": 1, "type": "stat", "title": "API requests", "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0}, "targets": [{"expr": "sum(sentinelstream_api_requests_total)", "refId": "A"}]},
+    {"id": 2, "type": "stat", "title": "Predictions", "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0}, "targets": [{"expr": "sum(sentinelstream_predictions_generated_total)", "refId": "A"}]},
+    {"id": 3, "type": "stat", "title": "Alerts", "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0}, "targets": [{"expr": "sum(sentinelstream_fraud_alerts_generated_total)", "refId": "A"}]},
+    {"id": 4, "type": "timeseries", "title": "API request rate", "gridPos": {"h": 8, "w": 24, "x": 0, "y": 4}, "targets": [{"expr": "sum(rate(sentinelstream_api_requests_total[5m]))", "refId": "A", "legendFormat": "requests/s"}]}
+  ]
+}

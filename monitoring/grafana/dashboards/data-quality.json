@@ -1,0 +1,11 @@
+{
+  "title": "SentinelStream - Data Quality and Drift",
+  "uid": "sentinelstream-quality",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Data-quality events", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "targets": [{"expr": "sum by (kind) (rate(sentinelstream_data_quality_events_total[5m]))", "refId": "A", "legendFormat": "{{kind}}"}]},
+    {"id": 2, "type": "stat", "title": "Maximum drift score", "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "targets": [{"expr": "max(sentinelstream_drift_score)", "refId": "A"}]}
+  ]
+}
