@@ -45,7 +45,7 @@ data/**/*.parquet
 !data/samples/.gitkeep
 !data/checkpoints/.gitkeep
 !data/streaming/.gitkeep
-models/
+/models/
 mlruns/
 mlflow.db*
 reports/figures/*
