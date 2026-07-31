@@ -14,6 +14,21 @@ from sentinelstream.models.decision import (
     make_decision,
 )
 from sentinelstream.models.evaluation import CostConfig, evaluate_scores
+from sentinelstream.models.explainability import (
+    Counterfactual,
+    ExplainerUnavailableError,
+    Explanation,
+    ExplanationStore,
+    FeatureContribution,
+    FeatureImportance,
+    GlobalExplanation,
+    ReasonCode,
+    build_reason_codes,
+    explain_global,
+    explain_local,
+    explanation_stability,
+    generate_counterfactuals,
+)
 from sentinelstream.models.hybrid import (
     AblationExperiment,
     AblationResult,
@@ -26,21 +41,6 @@ from sentinelstream.models.hybrid import (
     ProfileRisk,
     prioritise_alerts,
     validate_calibration,
-)
-from sentinelstream.models.explainability import (
-    Counterfactual,
-    Explanation,
-    ExplanationStore,
-    ExplainerUnavailableError,
-    FeatureContribution,
-    FeatureImportance,
-    GlobalExplanation,
-    ReasonCode,
-    build_reason_codes,
-    explain_global,
-    explain_local,
-    explanation_stability,
-    generate_counterfactuals,
 )
 from sentinelstream.models.thresholding import (
     CostModel,

@@ -5,8 +5,8 @@ import pandas as pd
 from sentinelstream.config.settings import SimulationSettings
 from sentinelstream.data.validation import validate_records
 from sentinelstream.models.evaluation import evaluate_scores
-from sentinelstream.models.training import train_baselines
 from sentinelstream.models.tracking import ExperimentTracker
+from sentinelstream.models.training import train_baselines
 from sentinelstream.simulation.generator import TransactionGenerator
 
 
@@ -36,8 +36,13 @@ def test_temporal_baselines_train_and_track(tmp_path: Path) -> None:
         tracker=ExperimentTracker(tmp_path / "runs.jsonl", use_mlflow=False),
     )
 
-    assert set(run.models) == {"dummy", "rules", "logistic_regression", "random_forest", "isolation_forest"}
+    assert set(run.models) == {
+        "dummy",
+        "rules",
+        "logistic_regression",
+        "random_forest",
+        "isolation_forest",
+    }
     assert set(run.metrics["partition"]) == {"validation", "test"}
     assert {"pr_auc", "brier_score", "expected_financial_cost"} <= set(run.metrics.columns)
     assert (tmp_path / "runs.jsonl").is_file()
-

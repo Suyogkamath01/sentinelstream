@@ -12,7 +12,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
-
 DEFAULT_MODEL_NAMES = (
     "dummy",
     "rules",

@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+from collections.abc import Sequence
 from dataclasses import dataclass, field
-from typing import Any, Sequence
+from typing import Any
 
 import numpy as np
 import pandas as pd
 
+from sentinelstream.data.splitting import TemporalSplit, temporal_split
 from sentinelstream.features.batch import build_batch_features
 from sentinelstream.models.baselines import (
     DEFAULT_MODEL_NAMES,
@@ -17,7 +19,6 @@ from sentinelstream.models.baselines import (
 )
 from sentinelstream.models.evaluation import CostConfig, evaluate_scores
 from sentinelstream.models.tracking import ExperimentTracker
-from sentinelstream.data.splitting import TemporalSplit, temporal_split
 
 
 @dataclass(slots=True)
@@ -89,7 +90,9 @@ def train_baselines(
                 models[model_name] = estimator
                 if model_name == "isolation_forest":
                     reference = -np.asarray(estimator.decision_function(train_matrix), dtype=float)
-                    validation_scores = _anomaly_probability(estimator, validation_matrix, reference)
+                    validation_scores = _anomaly_probability(
+                        estimator, validation_matrix, reference
+                    )
                     test_scores = _anomaly_probability(estimator, test_matrix, reference)
                 else:
                     validation_scores = _probability(estimator, validation_matrix)

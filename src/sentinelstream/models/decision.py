@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from enum import StrEnum
 from math import isfinite
-from typing import Mapping
 
 
 class RiskTier(StrEnum):
@@ -110,9 +110,12 @@ def _disagreement_reasons(signals: PredictionSignals, review_threshold: float) -
             reasons.append("rule_model_disagreement")
         if signals.rule_score <= 0.20 and signals.calibrated_probability >= review_threshold:
             reasons.append("rule_model_disagreement")
-    if signals.anomaly_score is not None:
-        if signals.anomaly_score >= 0.80 and signals.calibrated_probability < review_threshold:
-            reasons.append("anomaly_model_disagreement")
+    if (
+        signals.anomaly_score is not None
+        and signals.anomaly_score >= 0.80
+        and signals.calibrated_probability < review_threshold
+    ):
+        reasons.append("anomaly_model_disagreement")
     return reasons
 
 
