@@ -16,9 +16,12 @@ jobs:
   dependency-and-static-scan:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
+      - name: Fetch push base commit
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        run: git fetch --no-tags origin "${{ github.event.before }}"
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
@@ -30,7 +33,7 @@ jobs:
       - run: uv run bandit -r src -q
       - run: uv run pip-audit
       - name: Scan repository with Gitleaks
-        uses: gitleaks/gitleaks-action@v2
+        uses: gitleaks/gitleaks-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Scan repository configuration with Trivy
