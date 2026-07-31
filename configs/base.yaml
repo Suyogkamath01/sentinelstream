@@ -1,0 +1,156 @@
+app_name: SentinelStream
+environment: development
+timezone: UTC
+data_dir: data
+log_level: INFO
+kafka:
+  bootstrap_servers: localhost:9092
+  client_id: sentinelstream
+  consumer_group: sentinelstream-risk-engine
+  topic_partitions: 6
+  replication_factor: 1
+  request_timeout_ms: 30000
+  max_poll_records: 100
+  retry_attempts: 3
+  retry_backoff_seconds: 0.25
+  auto_offset_reset: latest
+  auto_create_topics: true
+  security_protocol: PLAINTEXT
+  sasl_mechanisms: null
+  sasl_username: null
+  sasl_password: null
+database:
+  url: null
+  echo: false
+  pool_size: 5
+  max_overflow: 10
+  pool_timeout_seconds: 30.0
+redis:
+  url: redis://localhost:6379/0
+  enabled: true
+  default_ttl_seconds: 300
+  socket_timeout_seconds: 1.0
+  fallback_max_entries: 10000
+api:
+  host: 127.0.0.1
+  port: 8000
+  jwt_algorithm: HS256
+  access_token_minutes: 30
+  cors_origins: []
+  max_request_bytes: 1000000
+security:
+  issuer: null
+  audience: null
+  token_revocation_enabled: true
+  pii_masking_enabled: true
+  log_redaction_enabled: true
+rate_limit:
+  enabled: true
+  requests: 120
+  window_seconds: 60
+  authentication_requests: 10
+  authentication_window_seconds: 60
+  key_prefix: sentinelstream:ratelimit
+hybrid:
+  supervised_weight: 0.40
+  anomaly_weight: 0.15
+  rules_weight: 0.15
+  customer_profile_weight: 0.10
+  merchant_profile_weight: 0.10
+  device_profile_weight: 0.10
+  review_threshold: 0.50
+  block_threshold: 0.85
+  min_confidence: 0.20
+  policy_version: phase8-hybrid-policy-v1
+dashboard:
+  api_url: http://127.0.0.1:8000
+  metrics_url: null
+  refresh_seconds: 10.0
+  request_timeout_seconds: 5.0
+  page_size: 50
+  verify_tls: true
+  auth_username: null
+  auth_password: null
+mlops:
+  tracking_uri: sqlite:///mlflow.db
+  registry_uri: null
+  experiment_name: sentinelstream-fraud
+  registered_model_name: sentinelstream-fraud-model
+  artifact_dir: reports/experiments
+  dataset_metadata_dir: data/metadata
+  minimum_recall: null
+  minimum_precision: null
+  maximum_fraud_cost: null
+  maximum_calibration_error: null
+  optuna_study_name: sentinelstream-fraud-tuning
+  optuna_storage: null
+  optuna_trials: 10
+  optuna_timeout_seconds: 300
+  random_seed: 42
+monitoring:
+  prometheus_enabled: true
+  prometheus_namespace: sentinelstream
+  drift_report_dir: reports/drift
+  reference_data_path: null
+  current_data_path: null
+  feature_drift_threshold: 0.20
+  prediction_drift_threshold: 0.20
+  health_timeout_seconds: 2.0
+  kafka_health_url: null
+  spark_health_url: null
+  mlflow_health_url: null
+  grafana_url: null
+benchmark:
+  iterations: 100
+  warmup_iterations: 10
+  api_url: http://127.0.0.1:8000
+  concurrency: 1
+  timeout_seconds: 5.0
+  random_seed: 42
+spark:
+  app_name: SentinelStreamStructuredStreaming
+  master: local[*]
+  checkpoint_dir: data/checkpoints/sentinelstream
+  batch_interval_seconds: 5.0
+  watermark_duration: 15 minutes
+  state_timeout_duration: 24 hours
+  history_retention_hours: 24.0
+  starting_offsets: latest
+  max_offsets_per_trigger: null
+  shuffle_partitions: 4
+  kafka_connector_package: org.apache.spark:spark-sql-kafka-0-10_2.13:4.2.0
+  jdbc_driver_package: org.postgresql:postgresql:42.7.5
+  source_topic: sentinelstream.validated-transactions.v1
+  input_message_kind: validated
+  validated_topic: sentinelstream.validated-transactions.v1
+  prediction_topic: sentinelstream.predictions.v1
+  alert_topic: sentinelstream.alerts.v1
+  audit_topic: sentinelstream.audit.v1
+  dead_letter_topic: sentinelstream.dead-letter.v1
+  parquet_output_dir: data/streaming
+  postgres_jdbc_url: null
+  postgres_table: sentinelstream_stream_events
+  model_path: null
+  model_version: unknown
+  calibration_version: unknown
+  model_probability_weight: 0.70
+  rule_probability_weight: 0.20
+  anomaly_probability_weight: 0.10
+simulation:
+  random_seed: 42
+  customer_count: 250
+  merchant_count: 60
+  fraud_ratio: 0.05
+  min_amount: 0.50
+  max_amount: 25000.0
+  start_time: 2025-01-01T00:00:00Z
+  duration_days: 30
+  duplicate_rate: 0.0
+  late_event_rate: 0.0
+  max_delay_seconds: 7200
+  malformed_rate: 0.0
+  out_of_order_rate: 0.0
+  burst_probability: 0.05
+  drift_enabled: false
+  drift_after_fraction: 0.70
+  replay: false

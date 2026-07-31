@@ -1,0 +1,38 @@
+groups:
+  - name: sentinelstream-operational
+    rules:
+      - alert: SentinelStreamApiErrorRate
+        expr: rate(sentinelstream_api_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: API server error rate is elevated
+      - alert: SentinelStreamPredictionLatency
+        expr: histogram_quantile(0.95, sum by (le) (rate(sentinelstream_api_request_duration_seconds_bucket{route=~"/v1/predictions.*"}[5m]))) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Prediction API latency is elevated
+      - alert: SentinelStreamDeadLetterGrowth
+        expr: increase(sentinelstream_streaming_events_total{outcome="dead_letter"}[15m]) > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Dead-letter events are increasing
+      - alert: SentinelStreamDriftDetected
+        expr: max(sentinelstream_drift_score) >= 0.20
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: A monitored feature or prediction distribution has drifted
+      - alert: SentinelStreamDatabaseUnavailable
+        expr: sentinelstream_api_requests_total{route="/ready",status="503"} > 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: SentinelStream readiness is failing
