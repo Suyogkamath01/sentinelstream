@@ -1,3 +1,5 @@
+# Keep secrets, local environments, and generated artifacts out of version control.
+
 # Python environments and caches
 .venv/
 venv/
