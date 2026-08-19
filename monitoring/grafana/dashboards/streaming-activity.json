@@ -1,0 +1,12 @@
+{
+  "title": "SentinelStream - Streaming Activity",
+  "uid": "sentinelstream-streaming",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Events by outcome", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "targets": [{"expr": "sum by (component, outcome) (rate(sentinelstream_streaming_events_total[5m]))", "refId": "A", "legendFormat": "{{component}} / {{outcome}}"}]},
+    {"id": 2, "type": "timeseries", "title": "Batch duration", "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "targets": [{"expr": "histogram_quantile(0.95, sum by (le, component) (rate(sentinelstream_streaming_batch_duration_seconds_bucket[5m])))", "refId": "A", "legendFormat": "{{component}} p95"}]},
+    {"id": 3, "type": "timeseries", "title": "Consumer lag", "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}, "targets": [{"expr": "sentinelstream_kafka_consumer_lag", "refId": "A", "legendFormat": "{{topic}}"}]}
+  ]
+}
