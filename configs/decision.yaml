@@ -1,0 +1,17 @@
+calibration:
+  method: isotonic
+  version: phase4-isotonic-v1
+threshold_optimization:
+  max_alerts: 250
+  cost_model:
+    false_positive_review_cost: 3.0
+    false_negative_cost_per_amount: 1.0
+    customer_friction_cost: 0.25
+    transaction_blocking_cost: 0.5
+    recovered_funds_rate: 0.0
+policy:
+  version: phase4-policy-v1
+  review_threshold: 0.5
+  block_threshold: 0.85
+  min_confidence: 0.2
+  min_segment_observations: 100
