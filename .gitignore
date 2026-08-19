@@ -1,0 +1,77 @@
+# Keep secrets, local environments, and generated artifacts out of version control.
+
+# Python environments and caches
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*.so
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+*.log
+
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+secrets/
+
+# Generated data and model artefacts
+data/raw/*
+data/interim/*
+data/processed/*
+data/features/*
+data/samples/*
+data/checkpoints/*
+data/streaming/*
+data/*.db
+data/**/*.csv
+data/**/*.jsonl
+data/**/*.parquet
+!data/raw/.gitkeep
+!data/interim/.gitkeep
+!data/processed/.gitkeep
+!data/features/.gitkeep
+!data/samples/.gitkeep
+!data/checkpoints/.gitkeep
+!data/streaming/.gitkeep
+/models/
+mlruns/
+mlflow.db*
+reports/figures/*
+reports/experiments/*
+reports/benchmarks/*
+reports/research/*
+reports/demo/*
+!reports/figures/.gitkeep
+!reports/experiments/.gitkeep
+!reports/benchmarks/.gitkeep
+!reports/research/.gitkeep
+!reports/demo/.gitkeep
+
+# Local CI and documentation artefacts
+.DS_Store
+site/
+README.md.orig
+README.md.rej.orig
+pyproject.toml.orig
+*.orig
+*.rej
+
+# Editor metadata
+.idea/
+.vscode/
+*.swp
+*.swo
