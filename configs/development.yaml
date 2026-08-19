@@ -1,0 +1,7 @@
+environment: development
+log_level: INFO
+kafka:
+  auto_create_topics: true
+spark:
+  master: local[*]
+  starting_offsets: latest
