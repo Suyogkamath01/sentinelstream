@@ -1,0 +1,12 @@
+{
+  "title": "SentinelStream - Fraud Operations",
+  "uid": "sentinelstream-fraud",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Predictions by risk tier", "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "targets": [{"expr": "sum by (risk_tier) (rate(sentinelstream_predictions_generated_total[5m]))", "refId": "A", "legendFormat": "{{risk_tier}}"}]},
+    {"id": 2, "type": "timeseries", "title": "Alerts by priority", "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "targets": [{"expr": "sum by (priority) (rate(sentinelstream_fraud_alerts_generated_total[5m]))", "refId": "A", "legendFormat": "priority {{priority}}"}]},
+    {"id": 3, "type": "timeseries", "title": "Feedback outcomes", "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}, "targets": [{"expr": "sum by (outcome) (rate(sentinelstream_analyst_feedback_total[5m]))", "refId": "A", "legendFormat": "{{outcome}}"}]}
+  ]
+}
