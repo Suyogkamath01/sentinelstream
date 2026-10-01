@@ -71,7 +71,7 @@ research = [
 
 mlops = [
     "mlflow-skinny>=2.15,<4",
-    "optuna>=3.6,<5",
+    "optuna>=3.6,<6",
 ]
 
 monitoring = [
